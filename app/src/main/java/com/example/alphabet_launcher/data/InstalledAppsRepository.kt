@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 class InstalledAppsRepository(context: Context) {
@@ -15,8 +17,8 @@ class InstalledAppsRepository(context: Context) {
     @Volatile
     private var cachedApps: List<AppInfo>? = null
 
-    fun getInstalledApps(): List<AppInfo> {
-        cachedApps?.let { return it }
+    suspend fun getInstalledApps(): List<AppInfo> = withContext(Dispatchers.IO) {
+        cachedApps?.let { return@withContext it }
 
         val iconSizePx = (ICON_SIZE_DP * appContext.resources.displayMetrics.density).roundToInt()
         val launcherIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
@@ -38,8 +40,7 @@ class InstalledAppsRepository(context: Context) {
             .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.label })
             .toList()
 
-        cachedApps = apps
-        return apps
+        apps.also { cachedApps = it }
     }
 
     fun launchIntentFor(packageName: String): Intent? =
