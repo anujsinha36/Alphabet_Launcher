@@ -36,6 +36,4 @@ A minimal Android launcher-style app built with Kotlin and Jetpack Compose. Drag
 
 No external third-party library is used for the curve animation.
 
-## AI Usage
-
-Claude Code was used as a learning and development aid to understand and frame how the alphabet list interaction and curve animation logic worked. It was also used to clarify implementation approaches and documentation during development.
+![App Demo](App_Demo.gif)
