@@ -37,5 +37,5 @@ A minimal Android launcher-style app built with Kotlin and Jetpack Compose. Drag
 No external third-party library is used for the curve animation.
 
 <p align="center">
-  <img src="App_Demo.gif" width="300" alt="App Demo">
+  <img src="App_Demo.gif" width="250" alt="App Demo">
 </p>
